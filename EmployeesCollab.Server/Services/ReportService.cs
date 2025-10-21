@@ -83,7 +83,7 @@ namespace EmployeesCollab.Services
                     }
                 }
             }
-            return totalCollabs[7];
+
             return totalCollabs.OrderByDescending(p => p.TotalTimeTogether).FirstOrDefault();
         }
 
