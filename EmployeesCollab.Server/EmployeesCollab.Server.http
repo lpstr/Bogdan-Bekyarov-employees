@@ -1,0 +1,6 @@
+@EmployeesCollab.Server_HostAddress = http://localhost:5206
+
+GET {{EmployeesCollab.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

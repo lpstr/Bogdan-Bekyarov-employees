@@ -1,0 +1,67 @@
+<div class="container" style="padding: 20px; max-width: 800px; margin: auto;">
+  <h2>Upload CSV file and get report for longest duo collaboration within projects.</h2>
+
+  <!-- File Upload -->
+  <div style="margin-bottom: 16px;">
+    <label style="display: block; margin-bottom: 8px;">Upload CSV data file:</label>
+    <input type="file" (change)="onFileSelected($event)" />
+  </div>
+
+  <!-- Date Format Dropdown -->
+  <mat-form-field appearance="fill" style="width: 100%; margin-bottom: 16px;">
+    <mat-label>Date Format</mat-label>
+    <mat-select [(ngModel)]="selectedDateFormat">
+      <mat-option *ngFor="let format of dateFormats" [value]="format">
+        {{format}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Submit Button -->
+  <button mat-raised-button color="primary" (click)="getReport()" [disabled]="!file">
+    Get Report Result
+  </button>
+
+  <!-- Table -->
+  <div style="margin-top: 24px;" *ngIf="tableData.length > 0">
+    <table mat-table [dataSource]="tableData" class="mat-elevation-z8" style="width: 100%;">
+
+      <!-- Employee1 Column -->
+      <ng-container matColumnDef="employee1">
+        <th mat-header-cell *matHeaderCellDef> Employee ID #1 </th>
+        <td mat-cell *matCellDef="let data"> {{data.employee1Id}} </td>
+      </ng-container>
+
+      <!-- Employee2 Column -->
+      <ng-container matColumnDef="employee2">
+        <th mat-header-cell *matHeaderCellDef> Employee ID #2 </th>
+        <td mat-cell *matCellDef="let data"> {{data.employee2Id}} </td>
+      </ng-container>
+
+      <!-- Project ID Column -->
+      <ng-container matColumnDef="projectId">
+        <th mat-header-cell *matHeaderCellDef> Project ID </th>
+        <td mat-cell *matCellDef="let data"> {{data.projectId}} </td>
+      </ng-container>
+
+      <!-- Days Worked Column -->
+      <ng-container matColumnDef="daysWorked">
+        <th mat-header-cell *matHeaderCellDef> Days Worked </th>
+        <td mat-cell *matCellDef="let data"> {{data.daysWorked}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+  </div>
+</div>
+
+<div *ngIf="reportData.errors && reportData.errors.length > 0" style="margin-top: 24px; color: red;">
+  <h3>Errors</h3>
+  <ul>
+    <li *ngFor="let error of reportData.errors">
+      {{ error }}
+    </li>
+  </ul>
+</div>
